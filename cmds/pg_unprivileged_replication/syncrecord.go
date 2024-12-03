@@ -6,7 +6,7 @@ import (
 	"time"
 
 	"github.com/lib/pq"
-	"github.com/tomyl/pg-dump-upsert/pgdump"
+	"github.com/stephrdev/pg-dump-upsert/pgdump"
 )
 
 type syncRecord struct {

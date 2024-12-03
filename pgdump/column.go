@@ -2,6 +2,7 @@ package pgdump
 
 import (
 	"database/sql"
+	"encoding/hex"
 	"strconv"
 	"strings"
 	"time"
@@ -62,6 +63,14 @@ func (col *column) bind() {
 			col.value = new(sql.NullString)
 		} else {
 			col.value = new(string)
+		}
+	case "bytea":
+		if col.Array {
+			panic("don't know how to bind array column " + col.Name + " of type " + col.Type)
+		} else if col.Nullable {
+			col.value = new(sql.Null[[]byte])
+		} else {
+			col.value = new([]byte)
 		}
 	case "timestamp without time zone", "timestamp with time zone", "date", "time without time zone", "time with time zone":
 		if col.Array {
@@ -178,6 +187,18 @@ func (col column) literal() string {
 		}
 
 		return pq.QuoteLiteral(vstr)
+	case "bytea":
+		var vb []byte
+		if col.Nullable {
+			if v := col.value.(*sql.Null[[]byte]); v.Valid {
+				vb = v.V
+			} else {
+				return "NULL"
+			}
+		} else {
+			vb = *col.value.(*[]byte)
+		}
+		return "'\\x" + hex.EncodeToString(vb) + "'::bytea"
 	case "timestamp without time zone", "timestamp with time zone", "date", "time without time zone", "time with time zone":
 		var ts string
 		if col.Nullable {

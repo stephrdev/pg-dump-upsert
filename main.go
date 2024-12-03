@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/tomyl/pg-dump-upsert/pgdump"
+	"github.com/stephrdev/pg-dump-upsert/pgdump"
 )
 
 func main() {

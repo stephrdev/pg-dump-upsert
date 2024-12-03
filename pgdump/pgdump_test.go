@@ -8,8 +8,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"golang.org/x/net/context"
 
-	"github.com/tomyl/pg-dump-upsert/internal/testdb"
-	"github.com/tomyl/pg-dump-upsert/pgdump"
+	"github.com/stephrdev/pg-dump-upsert/internal/testdb"
+	"github.com/stephrdev/pg-dump-upsert/pgdump"
 )
 
 const (

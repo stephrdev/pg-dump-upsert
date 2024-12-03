@@ -1,6 +1,6 @@
-module github.com/tomyl/pg-dump-upsert
+module github.com/stephrdev/pg-dump-upsert
 
-go 1.14
+go 1.18
 
 require (
 	github.com/georgysavva/scany v0.2.9
